@@ -7,6 +7,7 @@ ARG PATH_TO_ELASTICSEARCH
 # Intended to be provided by runner
 ENV NODE_NR=""
 ENV DISCOVERY_SEEDS=""
+ENV MASTER_NODES=""
 
 # Default values for environment
 ENV DATA="/data"
@@ -24,4 +25,4 @@ ADD --chown=appuser:appuser $PATH_TO_ELASTICSEARCH /elasticsearch
 
 USER appuser
 
-CMD ["/elasticsearch/bin/elasticsearch", "-Epath.data=${DATA}", "-Epath.logs=${LOGS}", "-Enode.name=node-${NODE_NR}", "-Ehttp.port=920${NODE_NR}", "-Enetwork.host=0.0.0.0", "-Enode.master=true", "-Expack.ml.enabled=false", "-Expack.security.enabled=false", "-Ediscovery.seed_hosts=${DISCOVERY_SEEDS}"]
+CMD ["/elasticsearch/bin/elasticsearch", "-Epath.data=${DATA}", "-Epath.logs=${LOGS}", "-Enode.name=node-${NODE_NR}", "-Ehttp.port=920${NODE_NR}", "-Enetwork.host=0.0.0.0", "-Enode.master=true", "-Expack.ml.enabled=false", "-Expack.security.enabled=false", "-Ediscovery.seed_hosts=${DISCOVERY_SEEDS}", "-Ecluster.initial_master_nodes=${MASTER_NODES}"]
